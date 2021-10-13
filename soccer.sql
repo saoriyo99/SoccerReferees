@@ -6,14 +6,14 @@ DROP TABLE IF EXISTS referees;
 
 CREATE TABLE referees (
 	refereeid int PRIMARY KEY AUTO_INCREMENT ,
-    name varchar(50) UNIQUE NOT NULL,
+    refname varchar(50) UNIQUE NOT NULL,
     age int,
-	grade varchar(30),
-	status varchar(45),
+	refgrade varchar(30),
+	refstatus varchar(45),
 	skillrating int
 );
 
-INSERT INTO referees (refereeid, name, age, grade, status, skillrating) VALUES 
+INSERT INTO referees (refereeid, refname, age, refgrade, refstatus, skillrating) VALUES 
 (1, 'Felix Brych', 37, 'Grade 9', 'Assigned', 90),
 (2, 'Ali Banane', 41, 'Grade 8', 'Unassigned', 80),
 (3, 'Viktor Kassai', 40, 'Grade 10', 'Tentative', 20),
@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS games;
 CREATE TABLE games (
 	gameid int PRIMARY KEY AUTO_INCREMENT ,
     location varchar(50),
-    date_time varchar(48)
+    date_time datetime
 );
 
 INSERT INTO games (gameid, location, date_time) VALUES 
