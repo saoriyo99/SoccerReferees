@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <title>Home Page</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <header>
+      <!-- Navbar with 4 items including brand-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">MSIS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="referees.html">Referees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="assignment.html">Assignments</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <h1>Game</h1>
+
+    <div>
+      <table class="table" id="sortableTableThree">
+        <thead>
+          <tr>
+            <th scope="col">Field</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Staples</td>
+            <td>3:18</td>
+          </tr>
+          <tr>
+            <td>Rulers</td>
+            <td>2:18</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form>
+        <div class="form-group col-md-8">
+          <label for="inputEmail4">Field</label>
+          <input type="text" class="form-control" id="inputEmail4" placeholder="Field">
+        </div>
+        <div class="form-group col-md-8">
+          <label for="inputPassword4">Time</label>
+          <input type="time" class="form-control" id="inputPassword4" placeholder="Time">
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+      </form>
+    </div>
+
+    <script src="js/tablesort.min.js"></script>
+    <script src="js/index.js"></script>
+    <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
+    <script>
+      new Tablesort(document.getElementById('sortableTableThree'));
+    </script>
+    
+  </body>
+</html>
