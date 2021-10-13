@@ -38,13 +38,51 @@
 
     <h1>Assignment</h1>
 
-    
+    <div>
+      <table class="table" id="sortableTableTwo">
+        <thead>
+          <tr>
+            <th scope="col">Game</th>
+            <th scope="col">Date</th>
+            <th scope="col">Referees</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>T vs. S</td>
+            <td>3/8</td>
+            <td>John Doe</td>
+          </tr>
+          <tr>
+            <td>J vs. E</td>
+            <td>2/8</td>
+            <td>Lina Doe</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form>
+        <div class="form-group col-md-8">
+          <label for="inputEmail4">Game</label>
+          <input type="text" class="form-control" id="inputEmail4" placeholder="Game">
+        </div>
+        <div class="form-group col-md-8">
+          <label for="inputPassword4">Date</label>
+          <input type="date" class="form-control" id="inputPassword4" placeholder="Date">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputAddress">Referee</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Referee">
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+      </form>
+    </div>
 
     <script src="js/tablesort.min.js"></script>
     <script src="js/index.js"></script>
     <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
     <script>
-      new Tablesort(document.getElementById('sortableTable'));
+      new Tablesort(document.getElementById('sortableTableTwo'));
     </script>
   </body>
 </html>

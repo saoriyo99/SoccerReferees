@@ -39,8 +39,52 @@
     </header>
 
     <h1>Referees</h1>
+
+    <div>
+      <table class="table" id="sortableTableOne">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Referee Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Doe</td>
+            <td>38</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Lina Doe</td>
+            <td>28</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form>
+        <div class="form-group col-md-8">
+          <label for="inputEmail4">Name</label>
+          <input type="text" class="form-control" id="inputEmail4" placeholder="Name">
+        </div>
+        <div class="form-group col-md-8">
+          <label for="inputPassword4">Age</label>
+          <input type="number" class="form-control" id="inputPassword4" placeholder="Age">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputAddress">Referee Grade</label>
+          <input type="number" class="form-control" id="inputAddress" placeholder="Referee Grade">
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+      </form>
+    </div>
     
-    <script src="js/aboutMe.js"></script>
-    
+
+    <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
+    <script>
+      new Tablesort(document.getElementById('sortableTableOne'));
+    </script>
+    <script src="js/tablesort.min.js"></script>
   </body>
 </html>
