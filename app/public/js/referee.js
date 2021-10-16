@@ -4,7 +4,7 @@ const UniqueReferee = {
             "games": [],
             "referees": [],
             "selectedGame": null,
-            "offerForm": {}
+            "refereeForm": {}
         }
     },
     computed: {
@@ -28,11 +28,11 @@ const UniqueReferee = {
             // Clear out referees array
             this.referees = [];
             // Get referees from student
-            this.fetchOfferData(this.selectedStudent);
+            this.fetchGameData(this.selectedGame);
         },
-        fetchStudentData() {
+        fetchGameData() {
             // creates a response
-            fetch('/api/student/')
+            fetch('/api/game/')
             // handles the promise, either completes or it doesn't
             // parameter response, returns response.json
             .then(response => response.json())
@@ -44,10 +44,10 @@ const UniqueReferee = {
                 console.error(err)
             })
         },
-        fetchOfferData(s) {
+        fetchRefereeData(s) {
             console.log("Fetching referees for", s);
             // creates a response
-            fetch('/api/offer/?student=' + s.id)
+            fetch('/api/referee/?game=' + s.id)
             // handles the promise
             // parameter response, returns response.json
             .then(response => response.json())
@@ -59,27 +59,13 @@ const UniqueReferee = {
                 console.error(err)
             })
         },
-        fetchUserData() {
-            // creates a response
-            fetch('https://randomuser.me/api/')
-            // handles the promise
-            // parameter response, returns response.json
-            .then(response => response.json())
-            .then((parsedJSON) => {
-                console.log(parsedJSON);
-                this.person = parsedJSON.results[0];
-            })
-            .catch(err => {
-                console.error(err)
-            })
-        },
-        postNewOffer(evt) {
-            this.offerForm.studentId = this.selectedStudent.id;
-            console.log("Positing", this.offerForm);
+        postNewReferee(evt) {
+            this.refereeForm.gameid = this.selectedGame.gameid;
+            console.log("Positing", this.refereeForm);
 
-            fetch('api/offer/create.php', {
+            fetch('api/referee/create.php', {
                 method: 'POST',
-                body: JSON.stringify(this.offerForm),
+                body: JSON.stringify(this.refereeForm),
                 headers: {
                     "Content-Type": "application/json; charset-utf-8"
                 }
@@ -88,13 +74,12 @@ const UniqueReferee = {
             .then( json => {
                 console.log("Returned from post:", json);
                 this.referees = json;
-                this.offerForm = {}
+                this.refereeForm = {}
             })
         }
     },
     created() {
-        // this.fetchUserData();
-        this.fetchStudentData();
+        this.fetchGameData();
     }
 }
 
