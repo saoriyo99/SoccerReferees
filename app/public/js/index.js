@@ -3,7 +3,8 @@ const SomeApp = {
       return {
         "referees": [],
         "assignments": [],
-        "games": []
+        "games": [],
+        "refereeForm" :{}
       }
     },
     computed: {},
@@ -27,6 +28,32 @@ const SomeApp = {
                 console.error(err);
             })
         },
+        postNewReferee(evt) {
+                
+            fetch('api/referee/create.php', {
+                method:'POST',
+                body: JSON.stringify(this.refereeForm),
+                headers: {
+                  "Content-Type": "application/json; charset=utf-8"
+                }
+              })
+              .then( response => response.json() )
+              .then( json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.referees = json;
+                
+                // reset the form
+                this.handleResetEdit();
+              });
+           } ,
+        //    handleEditOffer(offer){
+        //        this.selectedOffer = offer;
+        //        this.offerForm = this.selectedOffer;
+        //   },
+          handleResetEdit() {
+              this.refereeForm = {};
+          },
         fetchGameData() {
             fetch('/api/game/' )
             .then( response => response.json() )
