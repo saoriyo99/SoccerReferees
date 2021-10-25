@@ -2,8 +2,6 @@ const SomeApp = {
     data() {
       return {
         "referees": [],
-        "assignments": [],
-        "games": [],
         "refereeForm" :{}
       }
     },
@@ -53,29 +51,7 @@ const SomeApp = {
         //   },
           handleResetEdit() {
               this.refereeForm = {};
-          },
-        fetchGameData() {
-            fetch('/api/game/' )
-            .then( response => response.json() )
-            .then( (responseJson) => {
-                console.log(responseJson);
-                this.games = responseJson;
-            })
-            .catch( (err) => {
-                console.error(err);
-            })
-        },
-        fetchAssignmentData() {
-            fetch('/api/assignment/' )
-            .then( response => response.json() )
-            .then( (responseJson) => {
-                console.log(responseJson);
-                this.assignments = responseJson;
-            })
-            .catch( (err) => {
-                console.error(err);
-            })
-        }
+          }
        
     },
     created() {
