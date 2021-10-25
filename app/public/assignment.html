@@ -35,29 +35,24 @@
         </div>
       </nav>
     </header>
-
+<div class="container">
     <h1>Assignment</h1>
 
-    <div>
+    <div id="assignmentApp">
       <table class="table" id="sortableTableTwo">
         <thead>
           <tr>
-            <th scope="col">Game</th>
-            <th scope="col">Date</th>
-            <th scope="col">Referees</th>
+            <th scope="col">Assignment ID</th>
+            <th scope="col">Referee ID</th>
+            <th scope="col">Game ID</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>T vs. S</td>
-            <td>3/8</td>
-            <td>John Doe</td>
-          </tr>
-          <tr>
-            <td>J vs. E</td>
-            <td>2/8</td>
-            <td>Lina Doe</td>
-          </tr>
+          <tr v-for="assignment in assignments">
+            <td>{{ assignment.assignmentid }}</td>
+            <td>{{ assignment.refereeid }}</td>
+            <td>{{ assignment.gameid }}</td>
+        </tr>
         </tbody>
       </table>
 
@@ -77,9 +72,9 @@
         <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
       </form>
     </div>
-
+  </div>
     <script src="js/tablesort.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/assignment.js"></script>
     <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
     <script>
       new Tablesort(document.getElementById('sortableTableTwo'));

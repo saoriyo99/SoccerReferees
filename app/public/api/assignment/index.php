@@ -14,7 +14,7 @@ $db = DbConnection::getConnection();
 // exit;
 
 // Step 2: Create & run the query
-$sql = 'SELECT * FROM games';
+$sql = 'SELECT * FROM assignments';
 $vars = [];
 
 // if (isset($_GET['guid'])) {
@@ -26,10 +26,10 @@ $vars = [];
 $stmt = $db->prepare($sql);
 $stmt->execute($vars);
 
-$games = $stmt->fetchAll();
+$assignments = $stmt->fetchAll();
 
 // Step 3: Convert to JSON
-$json = json_encode($games, JSON_PRETTY_PRINT);
+$json = json_encode($assignments, JSON_PRETTY_PRINT);
 
 // Step 4: Output
 header('Content-Type: application/json');
