@@ -83,4 +83,4 @@ const UniqueReferee = {
     }
 }
 
-Vue.createApp(UniqueReferee).mount('.uniqueRefClass');
+Vue.createApp(UniqueReferee).mount('#uniqueRefClass');
