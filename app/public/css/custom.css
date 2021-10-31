@@ -11,6 +11,10 @@ a {
     color: yellow;
 }
 
+#del_btn{
+    margin-left: 6px;
+}
+
 .personalInfo {
     margin: auto;
     width: 50%;

@@ -60,11 +60,16 @@
             <td>{{ referee.refgrade }}</td>
             <td>{{ referee.refstatus }}</td>
             <td>{{ referee.skillrating }}</td>
+            <td>
+              <button type="button" v-on:click="handleEditReferee(referee)" class="btn btn-outline-dark btn-sm">Edit</button>
+              <button id="del_btn" type="button" v-on:click="postDeleteReferee(referee)" class="btn btn-outline-dark btn-sm">Delete</button>
+            </td>
         </tr>
         </tbody>
       </table>
 </div>
 <div class="col col-8">
+  <h4>{{ selectedReferee === null ? "Add " : "Edit " }} Referee</h4>
       <form v-on:submit.prevent="postNewReferee">
         <div class="form-group col-md-8">
           <label for="refereeName">Name</label>
@@ -88,7 +93,8 @@
         </div>
         
         <div>
-          <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+          <button type="submit" class="btn btn-primary">{{ selectedReferee === null ? "Add " : "Edit " }} Referee</button>
+          <button type="button" class="btn btn-outline-dark" v-if="selectedReferee" v-on:click="handleResetEdit">Cancel Edit</button>
         </div>
         
       </form>

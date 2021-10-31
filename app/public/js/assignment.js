@@ -43,7 +43,7 @@ const SomeApp = {
        
     },
     created() {
-        this.fetchAssignmentData();
+        this.fetchGameData();
     }
   
   }

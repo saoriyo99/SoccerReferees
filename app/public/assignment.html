@@ -48,10 +48,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="assignment in assignments">
-            <td>{{ assignment.assignmentid }}</td>
-            <td>{{ assignment.refereeid }}</td>
-            <td>{{ assignment.gameid }}</td>
+          <tr v-for="game in games">
+            <td>{{ game.gameid }}</td>
+            <td>{{ game.location }}</td>
+            <td>{{ game.date_time }}</td>
         </tr>
         </tbody>
       </table>
