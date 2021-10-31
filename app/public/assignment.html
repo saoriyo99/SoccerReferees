@@ -35,44 +35,66 @@
         </div>
       </nav>
     </header>
-<div class="container">
-    <h1>Assignment</h1>
 
-    <div id="assignmentApp">
-      <table class="table" id="sortableTableTwo">
-        <thead>
-          <tr>
-            <th scope="col">Assignment ID</th>
-            <th scope="col">Referee ID</th>
-            <th scope="col">Game ID</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="assignment in assignments">
-            <td>{{ assignment.assignmentid }}</td>
-            <td>{{ assignment.refereeid }}</td>
-            <td>{{ assignment.gameid }}</td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="container" id="assignmentApp">
 
-      <form>
-        <div class="form-group col-md-8">
-          <label for="inputEmail4">Game</label>
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Game">
+      <div class="row align-items-start">
+        <div class="col col-4">
+          <div v-for="g in games" v-on:click="selectGame(s)"
+           :class="['game', {selected: selectedGame && g.gameid == selectedGame.gameid}]">
+            <span class="location">{{ g.location }}</span><br>
+            <span class="time">{{ prettyData(g.date_time) }}</span>
+          </div>
         </div>
-        <div class="form-group col-md-8">
-          <label for="inputPassword4">Date</label>
-          <input type="date" class="form-control" id="inputPassword4" placeholder="Date">
+
+        <div class="col col-8" v-if="selectedGame">
+          <h1>Offers for {{ selectedGame.location }}</h1>
+          <table class="table" id="sortableTableTwo">
+            <thead>
+              <tr>
+                <th scope="col">Referee</th>
+                <th scope="col">Position</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="assignment in assignments">
+                <td>{{ getRefereeName(assignment.refereeid) }}</td>
+                <td>{{ assignment.position }}</td>
+                <td>{{ assignment.refstatus }}</td>
+                <td>
+                  <button type="button" v-on:click="handleEditAssignment(a)" class="btn btn-outline-secondary btn-sm">Edit</button>
+                  <button type="button" v-on:click="postDeleteAssignment(a)" class="btn btn-outline-secondary btn-sm">Delete</button>
+
+                </td>
+            </tr>
+            </tbody>
+          </table>
+  
+          <h3>{{ selectedAssignment === null ? "Add " : "Edit " }} Assignment</h3>
+          <form v-on:submit.prevent="postAssignment">
+            <div class="form-group col-md-8">
+              <label for="inputReferee">Referee</label>
+              <select v-model="assignmentForm.refereeid">
+                <option v-for="ref in referees" v-bind:value="ref.refereeid">
+                  {{ref.refname}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-8">
+              <label for="inputStatus">Position</label>
+              <input type="date" v-model="assignment.position" class="form-control" placeholder="Position">
+            </div>
+            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+          </form>
+          <div class="noOffers" v-if="! assignments.length">
+            <h3>No assignments. 😥</h3>
+          </div>
         </div>
-        <div class="form-group col-md-4">
-          <label for="inputAddress">Referee</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Referee">
-        </div>
-        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
-      </form>
+        
+      </div>
     </div>
-  </div>
+
     <script src="js/tablesort.min.js"></script>
     <script src="js/assignment.js"></script>
     <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
