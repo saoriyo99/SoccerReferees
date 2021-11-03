@@ -1,4 +1,4 @@
-const SomeApp = {
+const ConstApp = {
     data() {
       return {
         "assignments": [],
@@ -11,10 +11,10 @@ const SomeApp = {
     },
     computed: {},
     methods: {
-        prettyData(d) {
-            return dayjs(d)
-            .format('D MMM YYYY')
-        },
+        // prettyData(d) {
+        //     return dayjs(d)
+        //     .format('D MMM YYYY')
+        // },
         prettyDollar(n) {
             const d = new Intl.NumberFormat("en-US").format(n);
             return "$ " + d;
@@ -69,17 +69,20 @@ const SomeApp = {
                 return 0;
             })
         },
-        selectGame(s) {
-            if (s == this.selectedGame) {
+        selectGame(g) {
+            console.log("test");
+            if (g == this.selectedGame) {
+                console.log("test1");
                 return;
             }
-            this.selectedGame = s;
+            console.log("test2");
+            this.selectedGame = g;
             this.assignments = [];
             this.fetchAssignmentData(this.selectedGame);
         },
         postNewAssignment(evt) {
             //Make sure game id is the same
-            this.assignmentForm.gameid = this.selectedGame.id;
+            this.assignmentForm.gameid = this.selectedGame.gameid;
             //All new status are assigned
             this.assignmentForm.refstatus = "Assigned";
             console.log("Posting!", this.assignmentForm);
@@ -106,19 +109,19 @@ const SomeApp = {
         },
         postAssignment(evt) {
             if (this.selectedAssignment) {
-                this.postEditOffer(evt);
+                this.postEditAssignment(evt);
             } else {
-                this.postNewOffer(evt);
+                this.postNewAssignment(evt);
             }
         },
-        postEditOffer(evt) {
+        postEditAssignment(evt) {
             this.assignmentForm.assignmentid = this.selectedAssignment.assignmentid;
             this.assignmentForm.gameid = this.selectedAssignment.gameid;
             this.assignmentForm.refereeid = this.selectedAssignment.refereeid;        
             
             console.log("Editing!", this.assignmentForm);
     
-            fetch('api/offer/update.php', {
+            fetch('api/assignment/update.php', {
                 method:'POST',
                 body: JSON.stringify(this.assignmentForm),
                 headers: {
@@ -135,7 +138,7 @@ const SomeApp = {
                 this.handleResetEdit();
               });
         },
-        postDeleteOffer(a) {  
+        postDeleteAssignment(a) {  
             if ( !confirm("Are you sure you want to delete the assignment with " + this.getRefereeName(a.refereeid) + "?") ) {
                 return;
             }  
@@ -173,4 +176,4 @@ const SomeApp = {
   
   }
   
-  Vue.createApp(SomeApp).mount('#assignmentApp');
+  Vue.createApp(ConstApp).mount('#assignmentApp');

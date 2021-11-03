@@ -11,8 +11,12 @@ a {
     color: yellow;
 }
 
-#del_btn{
+.del_btn{
     margin-left: 6px;
+}
+
+#cancel_btn{
+	margin-left: 6px;
 }
 
 .personalInfo {
@@ -28,6 +32,14 @@ a {
 .welcome {
     margin: auto;
     width: 50%;
+}
+
+.btnstyle{
+	margin-top: 10px;
+
+}
+.footerstyle{
+	margin-top: 20px;
 }
 
 /** Table sort css **/
@@ -63,4 +75,8 @@ th[aria-sort]:not(.no-sort):after {
 th[role=columnheader]:not(.no-sort):hover:after {
 	visibility: visible;
 	opacity: 1;
+}
+
+.selected {
+	background-color: burlywood;
 }

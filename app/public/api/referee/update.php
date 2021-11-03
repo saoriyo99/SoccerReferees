@@ -35,7 +35,6 @@ $stmt = $db->prepare(
     refname = ?,
     age = ?,
     refgrade = ?,
-    refstatus = ?,
     skillrating = ?
   WHERE refereeid = ?'
 );
@@ -44,7 +43,6 @@ $stmt->execute([
   $_POST['refname'],
   $_POST['age'],
   $_POST['refgrade'],
-  $_POST['refstatus'],
   $_POST['skillrating'],
   $_POST['refereeid']
 ]);
