@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
   </head>
   <body>
-    
+    <div class="container">
     <header>
       <!-- Navbar with 4 items including brand-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,7 +38,7 @@
         </div>
       </nav>
     </header>
-    <div class="container">
+   
     <h1>Referees</h1>
 
     <div id="soccerApp" >
@@ -49,7 +49,6 @@
             <th scope="col">Name</th>
             <th scope="col">Age</th>
             <th scope="col">Referee Grade</th>
-            <th scope="col">Referee Status</th>
             <th scope="col">Skill Rating</th>
           </tr>
         </thead>
@@ -58,11 +57,10 @@
             <td>{{ referee.refname }}</td>
             <td>{{ referee.age }}</td>
             <td>{{ referee.refgrade }}</td>
-            <td>{{ referee.refstatus }}</td>
             <td>{{ referee.skillrating }}</td>
             <td>
               <button type="button" v-on:click="handleEditReferee(referee)" class="btn btn-outline-dark btn-sm">Edit</button>
-              <button id="del_btn" type="button" v-on:click="postDeleteReferee(referee)" class="btn btn-outline-dark btn-sm">Delete</button>
+              <button type="button" v-on:click="postDeleteReferee(referee)" class="btn btn-outline-dark btn-sm del_btn">Delete</button>
             </td>
         </tr>
         </tbody>
@@ -70,7 +68,7 @@
 </div>
 <div class="col col-8">
   <h4>{{ selectedReferee === null ? "Add " : "Edit " }} Referee</h4>
-      <form v-on:submit.prevent="postNewReferee">
+      <form v-on:submit.prevent="postReferee">
         <div class="form-group col-md-8">
           <label for="refereeName">Name</label>
           <input type="text" v-model="refereeForm.refname" class="form-control" id="refereeName" placeholder="Referee Name">
@@ -80,27 +78,41 @@
           <input type="number" v-model="refereeForm.age" class="form-control" id="refereeAge" placeholder="Referee Age">
         </div>
         <div class="form-group col-md-4">
-          <label for="refereeGrade">Referee Grade</label>
-          <input type="text" v-model="refereeForm.refgrade" class="form-control" id="refereeGrade" placeholder="Referee Grade">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="refereeStatus">Status</label>
-          <input type="text" v-model="refereeForm.refstatus" class="form-control" id="refereeStatus" placeholder="Status">
-        </div>
+          <label for="inputStatus">Referee Grade</label>
+         
+          <select v-model="refereeForm.refgrade" class="form-select" required="required">
+            <option value="Grade 1">Grade 1</option>
+            <option value="Grade 2">Grade 2</option>
+            <option value="Grade 3">Grade 3</option>
+            <option value="Grade 4">Grade 4</option>
+            <option value="Grade 5">Grade 5</option>
+            <option value="Grade 6">Grade 6</option>
+            <option value="Grade 7">Grade 7</option>
+            <option value="Grade 8">Grade 8</option>
+            <option value="Grade 9">Grade 9</option>
+            <option value="Grade 10">Grade 10</option>
+          </select>
+        
+        </div>        
+
         <div class="form-group col-md-4">
           <label for="skillRating">Skill Rating</label>
           <input type="number" v-model="refereeForm.skillrating" class="form-control" id="skillRating" placeholder="Skill Rating">
         </div>
-        
-        <div>
+      
+        <div class="btnstyle">
           <button type="submit" class="btn btn-primary">{{ selectedReferee === null ? "Add " : "Edit " }} Referee</button>
-          <button type="button" class="btn btn-outline-dark" v-if="selectedReferee" v-on:click="handleResetEdit">Cancel Edit</button>
+          <button id="cancel_btn" type="button" class="btn btn-outline-dark" v-if="selectedReferee" v-on:click="handleResetEdit">Cancel Edit</button>
         </div>
         
       </form>
       </div>
     </div>
+    
+    <div class="footerstyle">
+      <footer></footer>
     </div>
+  </div>
 <script src="js/index.js"></script>
 <script src="js/tablesort.min.js"></script>
     <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
