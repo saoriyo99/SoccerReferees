@@ -21,6 +21,9 @@ if (isset($_GET['game'])) {
     // This is an example of a parameterized query
     $sql = 'SELECT * FROM assignments WHERE gameid = ?';
     $vars = [ $_GET['game'] ];
+} elseif (isset($_GET['referee'])) {
+    $sql = 'SELECT * FROM assignments WHERE refereeid = ?';
+    $vars = [$_GET['referee']];
 }
 
 $stmt = $db->prepare($sql);
