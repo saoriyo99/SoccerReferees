@@ -69,7 +69,6 @@
                 <td>
                   <button type="button" v-on:click="handleEditAssignment(a)" class="btn btn-outline-dark btn-sm">Edit</button>
                   <button type="button" v-on:click="postDeleteAssignment(a)" class="btn btn-outline-dark btn-sm del_btn">Delete</button>
-
                 </td>
             </tr>
             </tbody>
@@ -97,14 +96,19 @@
                 <option value="Tentative">Tentative</option>
                 <option value="Accepted">Accepted</option>
               </select>
-            </div>
-            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
-          </form>
-          
+            </div >
+            <div class="btnstyle">
+            <button type="submit" class="btn btn-primary">{{ selectedAssignment === null ? "Add " : "Edit " }} Assignment</button>
+            <button id="cancel_btn" type="button" class="btn btn-outline-dark" v-if="selectedAssignment" v-on:click="handleResetEdit">Cancel Edit</button>
+          </div>
+          </form>        
         
-        </div>
+        </div>        
       </div>
+
+     
     </div>
+    
     <div class="footerstyle">
       <footer></footer>
     </div>

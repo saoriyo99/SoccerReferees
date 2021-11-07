@@ -42,6 +42,7 @@
     <h1>Referees</h1>
 
     <div id="soccerApp" >
+      <div class="row align-items-start">
       <div class="col col-8">
       <table class="table" id="sortableTableOne">
         <thead>
@@ -61,11 +62,31 @@
             <td>
               <button type="button" v-on:click="handleEditReferee(referee)" class="btn btn-outline-dark btn-sm">Edit</button>
               <button type="button" v-on:click="postDeleteReferee(referee)" class="btn btn-outline-dark btn-sm del_btn">Delete</button>
+              <button type="button" v-on:click="selectReferee(referee)" class="btn btn-outline-dark btn-sm del_btn">View Assignments</button>
             </td>
         </tr>
         </tbody>
       </table>
 </div>
+<div class="col col-4" v-if="selectedReferee">
+  <h3>Assignments for {{ selectedReferee.refname }} </h3>
+  <table class="table" id="sortableTableTwo">
+    <thead>
+      <tr>
+        <th scope="col">Assignment</th>
+        <th scope="col">Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="r in refereeAssignments">
+        <td>{{ r.assignmentid }}</td>
+        <td>{{ r.position }}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<div class="row align-items-start">
 <div class="col col-8">
   <h4>{{ selectedReferee === null ? "Add " : "Edit " }} Referee</h4>
       <form v-on:submit.prevent="postReferee">
@@ -106,6 +127,9 @@
         </div>
         
       </form>
+      </div>
+      
+      
       </div>
     </div>
     

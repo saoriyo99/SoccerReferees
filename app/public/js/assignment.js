@@ -171,17 +171,17 @@ const ConstApp = {
             this.assignmentForm = {};
         },
         //Call to get all assignments for a specific ref
-        fetchRefereeAssignment(r) {
-            fetch('/api/assignment/?referee=' + r.refereeid)
-            .then( response => response.json() )
-            .then( (responseJson) => {
-                console.log(responseJson);
-                this.refereeAssignments = responseJson;
-            })
-            .catch( (err) => {
-                console.error(err);
-            })
-        }
+        // fetchRefereeAssignment(r) {
+        //     fetch('/api/assignment/?referee=' + r.refereeid)
+        //     .then( response => response.json() )
+        //     .then( (responseJson) => {
+        //         console.log(responseJson);
+        //         this.refereeAssignments = responseJson;
+        //     })
+        //     .catch( (err) => {
+        //         console.error(err);
+        //     })
+        // }
     },
     created() {
         this.fetchGameData();

@@ -3,7 +3,8 @@ const SomeApp = {
       return {
         "referees": [],
         "refereeForm" :{},
-        "selectedReferee" : null
+        "selectedReferee" : null,
+        "refereeAssignments": []
       }
     },
     computed: {},
@@ -108,7 +109,27 @@ const SomeApp = {
           handleResetEdit() {
                this.selectedReferee = null;
                this.refereeForm = {};
-           }
+           },
+           selectReferee(r) {
+           
+            if (r == this.selectedReferee) {
+                return;
+            }
+            this.selectedReferee = r;
+            this.refereeAssignments = [];
+            this.fetchRefereeAssignment(this.selectedReferee);
+        },
+           fetchRefereeAssignment(r) {
+            fetch('/api/assignment/?referee=' + r.refereeid)
+            .then( response => response.json() )
+            .then( (responseJson) => {
+                console.log(responseJson);
+                this.refereeAssignments = responseJson;
+            })
+            .catch( (err) => {
+                console.error(err);
+            })
+        }
        
     },
     created() {
