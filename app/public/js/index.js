@@ -3,6 +3,8 @@ const SomeApp = {
       return {
         "referees": [],
         "refereeForm" :{},
+        "gameReport": [],
+        "KristyForm": {},
         "selectedReferee" : null,
         "refereeAssignments": [],
         "games": []
@@ -119,6 +121,25 @@ const SomeApp = {
                 this.handleResetEdit();
               });
           },
+          fetchRefereeData() {
+            fetch('api/report/gamereport.php', {
+              method:'POST',
+              body: JSON.stringify(this.KristyForm),
+              headers: {
+                "Content-Type": "application/json; charset=utf-8"
+              }
+            })
+            .then( response => response.json() )
+            .then( json => {
+              console.log("Returned from post:", json);
+              // TODO: test a result was returned!
+              this.referees = json;
+              
+              // reset the form
+              this.handleResetEdit();
+            });
+        },
+    
 
           handleEditReferee(referee) {
             this.selectedReferee = referee;
