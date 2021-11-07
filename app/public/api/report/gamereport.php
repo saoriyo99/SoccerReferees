@@ -5,12 +5,19 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT 
-  gameid,
-FROM assignments 
-  LEFT OUTER JOIN referees ON assignments.refereeid = referees.refereeid
-WHERE date_time BETWEEN ? AND ?
-GROUP BY username, name';
+$sql = 'SELECT assignments.refereeid, assignments.gameid, games.location, games.date_time, referees.refname
+
+FROM assignments
+
+LEFT JOIN referees
+
+ON assignments.refereeid = referees.refereeid
+
+LEFT JOIN games
+
+ON assignments.gameid = games.gameid;
+WHERE date_time BETWEEN StartDate=? AND EndDate=?
+GROUP BY refereeid';
 $vars = [];
 
 $stmt = $db->prepare($sql);
