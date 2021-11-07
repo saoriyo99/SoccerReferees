@@ -15,8 +15,8 @@ ON assignments.refereeid = referees.refereeid
 
 LEFT JOIN games
 
-ON assignments.gameid = games.gameid;
-WHERE date_time BETWEEN StartDate=? AND EndDate=?
+ON assignments.gameid = games.gameid
+WHERE date_time BETWEEN StartDate AND EndDate
 GROUP BY refereeid';
 
 $stmt = $db->prepare($sql);
