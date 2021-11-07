@@ -4,7 +4,8 @@ const SomeApp = {
         "referees": [],
         "refereeForm" :{},
         "selectedReferee" : null,
-        "refereeAssignments": []
+        "refereeAssignments": [],
+        "games": []
       }
     },
     computed: {},
@@ -27,7 +28,24 @@ const SomeApp = {
             .catch( (err) => {
                 console.error(err);
             })
+
+            //Get all the games
+            this.fetchRefereeData();
         },
+        fetchGameData() {
+          fetch('/api/game/')
+          .then( response => response.json() )
+          .then( (responseJson) => {
+              console.log(responseJson);
+              this.games = responseJson;
+          })
+          .catch( (err) => {
+              console.error(err);
+          })
+
+          //Get all referees to use in next step
+          this.fetchRefereeData()
+      },
         postReferee(evt) {
             console.log ("Test:", this.selectedReferee);
           if (this.selectedReferee) {
@@ -129,8 +147,17 @@ const SomeApp = {
             .catch( (err) => {
                 console.error(err);
             })
+        },
+        getGameLocation(gameId) {
+          x = this.games.find(g => g.gameid == gameId);
+          console.log("in getRefereeName, refname: ", x.location);
+          return x.location;
+        },
+        getGameDate(gameId) {
+          x = this.games.find(g => g.gameid == gameId);
+          console.log("in getRefereeName, refname: ", x.date_time);
+          return x.date_time;
         }
-       
     },
     created() {
         this.fetchRefereeData();
