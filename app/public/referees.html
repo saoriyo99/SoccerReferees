@@ -70,20 +70,26 @@
 </div>
 <div class="col col-4" v-if="selectedReferee">
   <h3>Assignments for {{ selectedReferee.refname }} </h3>
+ 
   <table class="table" id="sortableTableTwo">
     <thead>
       <tr>
-        <th scope="col">Assignment</th>
+        <th scope="col">Game Location</th>
+        <th scope="col">Game Date</th>
         <th scope="col">Position</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="r in refereeAssignments">
-        <td>{{ r.assignmentid }}</td>
+        <td>{{ getGameLocation(r.gameid)}}</td>
+        <td>{{ getGameDate(r.gameid)}}</td>
         <td>{{ r.position }}</td>
         </tr>
     </tbody>
   </table>
+  <div class="noAssignments" v-if="! refereeAssignments.length">
+    <h3>No Assignments. 😥</h3>
+  </div>
 </div>
 </div>
 <div class="row align-items-start">
