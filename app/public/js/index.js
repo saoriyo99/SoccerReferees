@@ -24,7 +24,7 @@ const SomeApp = {
             fetch('/api/referee/')
             .then( response => response.json() )
             .then( (responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.referees = responseJson;
             })
             .catch( (err) => {
@@ -32,7 +32,7 @@ const SomeApp = {
             })
 
             //Get all the games
-            this.fetchRefereeData();
+            this.fetchGameData();
         },
         fetchGameData() {
           fetch('/api/game/')
@@ -46,7 +46,7 @@ const SomeApp = {
           })
 
           //Get all referees to use in next step
-          this.fetchRefereeData()
+          //this.fetchRefereeData()
       },
         postReferee(evt) {
             console.log ("Test:", this.selectedReferee);
@@ -170,12 +170,12 @@ const SomeApp = {
             })
         },
         getGameLocation(gameId) {
-          x = this.games.find(g => g.gameid == gameId);
-          console.log("in getRefereeName, refname: ", x.location);
+          x = this.games.find(r => r.gameid == gameId);
+          console.log("in getGameLocation, location: ", x.location);
           return x.location;
         },
         getGameDate(gameId) {
-          x = this.games.find(g => g.gameid == gameId);
+          x = this.games.find(r => r.gameid == gameId);
           console.log("in getRefereeName, refname: ", x.date_time);
           return x.date_time;
         }
