@@ -31,15 +31,20 @@ $db = DbConnection::getConnection();
 // Step 2: Create & run the query
 // Note the use of parameterized statements to avoid injection
 $stmt = $db->prepare(
-  'INSERT INTO referees (refname, age, refgrade, skillrating)
-  VALUES (?, ?, ?, ?)'
+  'UPDATE referees SET 
+    refname = ?,
+    age = ?,
+    refgrade = ?,
+    skillrating = ?
+  WHERE refereeid = ?'
 );
 
 $stmt->execute([
   $_POST['refname'],
   $_POST['age'],
   $_POST['refgrade'],
-  $_POST['skillrating']
+  $_POST['skillrating'],
+  $_POST['refereeid']
 ]);
 
 // Get auto-generated PK from DB

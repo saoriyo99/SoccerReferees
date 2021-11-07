@@ -11,6 +11,21 @@ a {
     color: yellow;
 }
 
+.del_btn{
+    margin-left: 6px;
+}
+.game{
+	border: 2px solid #404040;
+	border-radius: 5px;
+	margin: 10px;
+	padding-left: 10px;
+	cursor: pointer;
+}
+
+#cancel_btn{
+	margin-left: 6px;
+}
+
 .personalInfo {
     margin: auto;
     width: 50%;
@@ -24,6 +39,14 @@ a {
 .welcome {
     margin: auto;
     width: 50%;
+}
+
+.btnstyle{
+	margin-top: 10px;
+
+}
+.footerstyle{
+	margin-top: 20px;
 }
 
 /** Table sort css **/
@@ -59,4 +82,9 @@ th[aria-sort]:not(.no-sort):after {
 th[role=columnheader]:not(.no-sort):hover:after {
 	visibility: visible;
 	opacity: 1;
+}
+
+.selected {
+	background-color: rgb(245, 179, 92);
+	color: black;
 }

@@ -11,8 +11,11 @@
 
     <title>Assignments Page</title>
     <script src="https://unpkg.com/vue@next"></script>
+
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
   </head>
   <body>
+    <div class="container">
     <header>
       <!-- Navbar with 4 items including brand-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,49 +38,87 @@
         </div>
       </nav>
     </header>
-<div class="container">
-    <h1>Assignment</h1>
 
-    <div id="assignmentApp">
-      <table class="table" id="sortableTableTwo">
-        <thead>
-          <tr>
-            <th scope="col">Assignment ID</th>
-            <th scope="col">Referee ID</th>
-            <th scope="col">Game ID</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="assignment in assignments">
-            <td>{{ assignment.assignmentid }}</td>
-            <td>{{ assignment.refereeid }}</td>
-            <td>{{ assignment.gameid }}</td>
-        </tr>
-        </tbody>
-      </table>
+    <div id="assignmentApp">      
 
-      <form>
-        <div class="form-group col-md-8">
-          <label for="inputEmail4">Game</label>
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Game">
+      <div class="row align-items-start">
+        <div class="col col-4">
+          <div v-for="g in games" v-on:click="selectGame(g)"
+           :class="['game', {selected: selectedGame && g.gameid == selectedGame.gameid}]">
+            <span class="location">{{ g.location }}</span><br>
+            <!-- <span class="time">{{ prettyData(g.date_time) }}</span> -->
+            <span class="time">{{ g.date_time }}</span>
+          </div>
         </div>
-        <div class="form-group col-md-8">
-          <label for="inputPassword4">Date</label>
-          <input type="date" class="form-control" id="inputPassword4" placeholder="Date">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputAddress">Referee</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Referee">
-        </div>
-        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
-      </form>
+
+        <div class="col col-8" v-if="selectedGame">
+          <h1>Assignments for {{ selectedGame.location }}</h1>
+          <table class="table" id="sortableTableTwo">
+            <thead>
+              <tr>
+                <th scope="col">Referee</th>
+                <th scope="col">Position</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="a in assignments">
+                <td>{{ getRefereeName(a.refereeid) }}</td>
+                <td>{{ a.position }}</td>
+                <td>{{ a.refstatus }}</td>
+                <td>
+                  <button type="button" v-on:click="handleEditAssignment(a)" class="btn btn-outline-dark btn-sm">Edit</button>
+                  <button type="button" v-on:click="postDeleteAssignment(a)" class="btn btn-outline-dark btn-sm del_btn">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+          </table>
+        
+          <h3>{{ selectedAssignment === null ? "Add " : "Edit " }} Assignment</h3>
+          <form v-on:submit.prevent="postAssignment">
+            <div class="form-group col-md-8">
+              <label for="inputReferee">Referee</label>
+              <select v-model="assignmentForm.refereeid" class="form-select">
+                <option v-for="ref in referees" v-bind:value="ref.refereeid">
+                  {{ref.refname}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-8">
+              <label for="inputStatus">Position</label>
+              <input type="text" v-model="assignmentForm.position" class="form-control" placeholder="Position">
+            </div>
+            <div class="form-group col-md-8">
+              <label for="inputStatus">Referee Status</label>
+              <select v-model="assignmentForm.refstatus" class="form-select" required="required">
+                <option value="Assigned">Assigned</option>
+                <option value="Unassigned">Unassigned</option>
+                <option value="Tentative">Tentative</option>
+                <option value="Accepted">Accepted</option>
+              </select>
+            </div >
+            <div class="btnstyle">
+            <button type="submit" class="btn btn-primary">{{ selectedAssignment === null ? "Add " : "Edit " }} Assignment</button>
+            <button id="cancel_btn" type="button" class="btn btn-outline-dark" v-if="selectedAssignment" v-on:click="handleResetEdit">Cancel Edit</button>
+          </div>
+          </form>        
+        
+        </div>        
+      </div>
+
+     
     </div>
-  </div>
+    
+    <div class="footerstyle">
+      <footer></footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="js/tablesort.min.js"></script>
     <script src="js/assignment.js"></script>
     <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
-    <script>
+    <!-- <script>
       new Tablesort(document.getElementById('sortableTableTwo'));
-    </script>
+    </script> -->
   </body>
 </html>

@@ -2,7 +2,10 @@ const SomeApp = {
     data() {
       return {
         "referees": [],
-        "refereeForm" :{}
+        "refereeForm" :{},
+        "selectedReferee" : null,
+        "refereeAssignments": [],
+        "games": []
       }
     },
     computed: {},
@@ -25,6 +28,53 @@ const SomeApp = {
             .catch( (err) => {
                 console.error(err);
             })
+
+            //Get all the games
+            this.fetchRefereeData();
+        },
+        fetchGameData() {
+          fetch('/api/game/')
+          .then( response => response.json() )
+          .then( (responseJson) => {
+              console.log(responseJson);
+              this.games = responseJson;
+          })
+          .catch( (err) => {
+              console.error(err);
+          })
+
+          //Get all referees to use in next step
+          this.fetchRefereeData()
+      },
+        postReferee(evt) {
+            console.log ("Test:", this.selectedReferee);
+          if (this.selectedReferee) {
+              this.postEditReferee(evt);
+          } else {
+              this.postNewReferee(evt);
+          }
+        },
+        postEditReferee(evt) {
+          this.refereeForm.refereeid = this.selectedReferee.refereeid;
+
+          console.log("Editing!", this.refereeForm);
+  
+          fetch('api/referee/update.php', {
+              method:'POST',
+              body: JSON.stringify(this.refereeForm),
+              headers: {
+                "Content-Type": "application/json; charset=utf-8"
+              }
+            })
+            .then( response => response.json() )
+            .then( json => {
+              console.log("Returned from post:", json);
+              // TODO: test a result was returned!
+              this.referees = json;
+              
+              // reset the form
+              this.handleResetEdit();
+            });
         },
         postNewReferee(evt) {
                 
@@ -45,14 +95,69 @@ const SomeApp = {
                 this.handleResetEdit();
               });
            } ,
-        //    handleEditOffer(offer){
-        //        this.selectedOffer = offer;
-        //        this.offerForm = this.selectedOffer;
-        //   },
+       postDeleteReferee(o) {  
+            if ( !confirm("Are you sure you want to delete " + o.refname + " from the table?") ) {
+                return;
+            }  
+            
+            console.log("Delete!", o);
+    
+            fetch('api/referee/delete.php', {
+                method:'POST',
+                body: JSON.stringify(o),
+                headers: {
+                  "Content-Type": "application/json; charset=utf-8"
+                }
+              })
+              .then( response => response.json() )
+              .then( json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.referees = json;
+                
+                // reset the form
+                this.handleResetEdit();
+              });
+          },
+
+          handleEditReferee(referee) {
+            this.selectedReferee = referee;
+            this.refereeForm = this.selectedReferee;
+          },
           handleResetEdit() {
-              this.refereeForm = {};
-          }
-       
+               this.selectedReferee = null;
+               this.refereeForm = {};
+           },
+           selectReferee(r) {
+           
+            if (r == this.selectedReferee) {
+                return;
+            }
+            this.selectedReferee = r;
+            this.refereeAssignments = [];
+            this.fetchRefereeAssignment(this.selectedReferee);
+        },
+           fetchRefereeAssignment(r) {
+            fetch('/api/assignment/?referee=' + r.refereeid)
+            .then( response => response.json() )
+            .then( (responseJson) => {
+                console.log(responseJson);
+                this.refereeAssignments = responseJson;
+            })
+            .catch( (err) => {
+                console.error(err);
+            })
+        },
+        getGameLocation(gameId) {
+          x = this.games.find(g => g.gameid == gameId);
+          console.log("in getRefereeName, refname: ", x.location);
+          return x.location;
+        },
+        getGameDate(gameId) {
+          x = this.games.find(g => g.gameid == gameId);
+          console.log("in getRefereeName, refname: ", x.date_time);
+          return x.date_time;
+        }
     },
     created() {
         this.fetchRefereeData();
