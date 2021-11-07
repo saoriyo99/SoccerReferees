@@ -18,10 +18,13 @@ LEFT JOIN games
 ON assignments.gameid = games.gameid;
 WHERE date_time BETWEEN StartDate=? AND EndDate=?
 GROUP BY refereeid';
-$vars = [];
 
 $stmt = $db->prepare($sql);
-$stmt->execute($vars);
+$stmt->execute([
+    $_POST['refereeid'],
+    $_POST['StartDate'],
+    $_POST['EndDate']
+  ]);
 
 $offers = $stmt->fetchAll();
 

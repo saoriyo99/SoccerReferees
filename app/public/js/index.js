@@ -152,6 +152,7 @@ const SomeApp = {
             if (r == this.selectedReferee) {
                 return;
             }
+            this.KristyForm.refereeid = r.refereeid;
             this.selectedReferee = r;
             this.refereeAssignments = [];
             this.fetchRefereeAssignment(this.selectedReferee);
