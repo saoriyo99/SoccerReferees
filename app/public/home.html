@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="css/custom.css">
-    
+
     <title>Home Page</title>
     <script src="https://unpkg.com/vue@next"></script>
   </head>
@@ -38,7 +38,7 @@
 
     <h1>Game</h1>
 
-    <div>
+    <div id="uniqueHome">
       <table class="table" id="sortableTableThree">
         <thead>
           <tr>
@@ -47,14 +47,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Staples</td>
-            <td>3:18</td>
-          </tr>
-          <tr>
-            <td>Rulers</td>
-            <td>2:18</td>
-          </tr>
+         <tr v-for="game in games">
+           <td>{{ game.location }} </td>
+           <td>{{ game.date_time }} </td>
+         </tr>
         </tbody>
       </table>
 
@@ -72,11 +68,11 @@
     </div>
 
     <script src="js/tablesort.min.js"></script>
-    <script src="js/index.js"></script>
     <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
     <script>
       new Tablesort(document.getElementById('sortableTableThree'));
     </script>
+    <script src="js/home.js"></script>
     
   </body>
 </html>
