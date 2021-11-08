@@ -5,16 +5,29 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT games.location, games.date_time
-FROM games
-INNER JOIN assignments ON games.gameid = assignments.gameid
-WHERE EXISTS(SELECT NULL FROM assignments 
-            WHERE assignments.refstatus = ?) AND games.date_time > NOW()
-GROUP BY games.location';
+if(isset($_GET['status'])) {
+  $sql = 'SELECT games.location, games.date_time
+  FROM games
+  INNER JOIN assignments ON games.gameid = assignments.gameid
+  -- WHERE EXISTS(SELECT NULL FROM assignments 
+  --             WHERE status = ?) AND games.date_time > NOW()
+  WHERE games.date_time > NOW()
+  GROUP BY games.location';
+  $vars = [$_GET['status']];
+}
+// $sql = 'SELECT games.location, games.date_time
+// FROM games
+// INNER JOIN assignments ON games.gameid = assignments.gameid
+// -- WHERE EXISTS(SELECT NULL FROM assignments 
+// --             WHERE status = ?) AND games.date_time > NOW()
+// WHERE games.date_time > NOW()
+// GROUP BY games.location';
 
-$vars = [,
-    isset($_POST['pickedStatus'])
-];
+// $vars = [
+//     isset($_GET['status'])
+// ];
+
+echo $vars[0];
 
 $stmt = $db->prepare($sql);
 $stmt->execute($vars);

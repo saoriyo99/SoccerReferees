@@ -26,7 +26,6 @@ const HomePage = {
             })
         },
         postNewGame(evt) {
-            this.gameForm.gameid = this.selectedGame.gameid;
             console.log("Positing", this.gameForm);
 
             fetch('api/game/create.php', {
