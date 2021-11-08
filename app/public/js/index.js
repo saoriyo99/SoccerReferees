@@ -137,8 +137,6 @@ const SomeApp = {
 
         });
     },
-
-
     handleEditReferee(referee) {
       this.selectedReferee = referee;
       this.refereeForm = this.selectedReferee;

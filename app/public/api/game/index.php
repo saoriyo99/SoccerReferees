@@ -28,9 +28,19 @@ $stmt->execute($vars);
 
 $games = $stmt->fetchAll();
 
-// Step 3: Convert to JSON
-$json = json_encode($games, JSON_PRETTY_PRINT);
+if (isset($_GET['format']) && $_GET['format']=='csv') {
+    header('Content-Type: text/csv');
+  
+    foreach($games as $g) {
+      echo "\"".$g['location'] . "\","
+            .$g['date_time'] . "\r\n";
+    }
+  
+} else {
+    // Step 3: Convert to JSON
+    $json = json_encode($games, JSON_PRETTY_PRINT);
 
-// Step 4: Output
-header('Content-Type: application/json');
-echo $json;
+    // Step 4: Output
+    header('Content-Type: application/json');
+    echo $json;
+} 
