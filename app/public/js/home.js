@@ -2,77 +2,106 @@ const HomePage = {
     data() {
         return {
             "games": [],
-            "referees": [],
             "selectedGame": null,
-            "refereeForm": {}
+            "gameForm": {}
         }
     },
     computed: {
         prettyBirthday() {
             return dayjs(this.person.dob.date)
-            .format('D MMM YYYY');
+                .format('D MMM YYYY');
         }
     },
     methods: {
-        prettyDollar(n) {
-            const d = new Intl.NumberFormat("en-US").format(n);
-            return "$ " + d;
-        },
-        selectGame(s) {
-            // Don't fetch same game multiple times
-            if (s == this.selectedGame) {
-                return;
-            }
-            // Set Game
-            this.selectedGame = s;
-            // Clear out referees array
-            this.referees = [];
-            // Get referees from student
-            this.fetchGameData(this.selectedGame);
-        },
         fetchGameData() {
-            fetch('/api/game/' )
-            .then( response => response.json() )
-            .then( (responseJson) => {
+            fetch('/api/game/')
+            .then(response => response.json())
+            .then((responseJson) => {
                 console.log(responseJson);
                 this.games = responseJson;
             })
-            .catch( (err) => {
+            .catch((err) => {
                 console.error(err);
             })
         },
-        fetchRefereeData(s) {
-            console.log("Fetching referees for", s);
-            // creates a response
-            fetch('/api/referee/?game=' + s.id)
-            // handles the promise
-            // parameter response, returns response.json
-            .then(response => response.json())
-            .then((parsedJSON) => {
-                console.log(parsedJSON);
-                this.referees = parsedJSON;
-            })
-            .catch(err => {
-                console.error(err)
-            })
-        },
-        postNewReferee(evt) {
-            this.refereeForm.gameid = this.selectedGame.gameid;
-            console.log("Positing", this.refereeForm);
+        postNewGame(evt) {
+            this.gameForm.gameid = this.selectedGame.gameid;
+            console.log("Positing", this.gameForm);
 
-            fetch('api/referee/create.php', {
+            fetch('api/game/create.php', {
                 method: 'POST',
-                body: JSON.stringify(this.refereeForm),
+                body: JSON.stringify(this.gameForm),
                 headers: {
                     "Content-Type": "application/json; charset-utf-8"
                 }
             })
-            .then( response => response.json())
-            .then( json => {
+            .then(response => response.json())
+            .then(json => {
                 console.log("Returned from post:", json);
-                this.referees = json;
-                this.refereeForm = {}
+                this.games = json;
+                this.gameForm = {}
             })
+        },
+        postGame(evt) {
+            if (this.selectedGame) {
+                this.postEditGame(evt);
+            } else {
+                this.postNewGame(evt);
+            }
+        },
+        postEditGame(evt) {
+            this.gameForm.gameid = this.selectedGame.gameid;
+
+            console.log("Editing!", this.gameForm);
+
+            fetch('api/game/update.php', {
+                method: 'POST',
+                body: JSON.stringify(this.gameForm),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.games = json;
+
+                // reset the form
+                this.handleResetEdit();
+            });
+        },
+        postDeleteGame(o) {
+            if (!confirm("Are you sure you want to delete " + o.location + " from the table?")) {
+                return;
+            }
+
+            console.log("Delete!", o);
+
+            fetch('api/game/delete.php', {
+                method: 'POST',
+                body: JSON.stringify(o),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.games = json;
+
+                // reset the form
+                this.handleResetEdit();
+            });
+        },
+        handleResetEdit() {
+            this.selectedGame = null;
+            this.gameForm = {};
+        },
+        handleEditGame(g) {
+            this.selectedGame = g;
+            this.gameForm = Object.assign({}, this.selectedGame);
         }
     },
     created() {
