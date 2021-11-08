@@ -3,7 +3,8 @@ const HomePage = {
         return {
             "games": [],
             "selectedGame": null,
-            "gameForm": {}
+            "gameForm": {},
+            "pickedStatus": null
         }
     },
     computed: {
