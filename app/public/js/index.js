@@ -38,7 +38,7 @@ const SomeApp = {
       fetch('/api/game/')
         .then(response => response.json())
         .then((responseJson) => {
-          console.log(responseJson);
+          //console.log(responseJson);
           this.games = responseJson;
         })
         .catch((err) => {
@@ -137,6 +137,8 @@ const SomeApp = {
 
         });
     },
+
+    
     handleEditReferee(referee) {
       this.selectedReferee = referee;
       this.refereeForm = this.selectedReferee;
@@ -168,12 +170,12 @@ const SomeApp = {
     },
     getGameLocation(gameId) {
       x = this.games.find(r => r.gameid == gameId);
-      console.log("in getGameLocation, location: ", x.location);
+      //console.log("in getGameLocation, location: ", x.location);
       return x.location;
     },
     getGameDate(gameId) {
       x = this.games.find(r => r.gameid == gameId);
-      console.log("in getRefereeName, refname: ", x.date_time);
+      //console.log("in getRefereeName, refname: ", x.date_time);
       return x.date_time;
     }
   },
