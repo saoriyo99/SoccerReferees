@@ -121,7 +121,7 @@ const SomeApp = {
                 this.handleResetEdit();
               });
           },
-          getGameReports(evt) {
+          getGameReports() {
             fetch('api/report/gamereport.php', {
               method:'POST',
               body: JSON.stringify(this.KristyForm),

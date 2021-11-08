@@ -5,22 +5,20 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT a.refereeid, a.gameid, g.location, g.date_time, r.refname
-FROM assignments a, games g, referees r
-LEFT OUTER JOIN referees
-ON assignments.refereeid = referees.refereeid
+$sql = 'SELECT assignments.refereeid, assignments.gameid, games.location, games.date_time, r.refname
+FROM assignments
+LEFT OUTER JOIN referees r
+ON assignments.refereeid = r.refereeid
 LEFT OUTER JOIN games
 ON assignments.gameid = games.gameid
-WHERE date_time BETWEEN StartDate AND EndDate
-GROUP BY refereeid';
-// $vars = [];
+WHERE games.date_time BETWEEN ? AND ?
+GROUP BY r.refereeid';
+
+ $vars = [$_POST['StartDate'],
+ $_POST['EndDate']];
 
 $stmt = $db->prepare($sql);
-$stmt->execute([
-    $_POST['refereeid'],
-    $_POST['StartDate'],
-    $_POST['EndDate']
-  ]);
+$stmt->execute($vars);
 
 $games = $stmt->fetchAll();
 
@@ -38,7 +36,7 @@ if (isset($_GET['format']) && $_GET['format']=='csv') {
 
 } else {
   // Step 3: Convert to JSON
-  $json = json_encode($offers, JSON_PRETTY_PRINT);
+  $json = json_encode($games, JSON_PRETTY_PRINT);
 
   // Step 4: Output
   header('Content-Type: application/json');
