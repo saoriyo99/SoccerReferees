@@ -73,7 +73,7 @@
             </tr>
             </tbody>
           </table>
-        
+          <p><a v-bind:href="'api/assignment/?format=csv'" download>Download as CSV</a></p>
           <h3>{{ selectedAssignment === null ? "Add " : "Edit " }} Assignment</h3>
           <form v-on:submit.prevent="postAssignment">
             <div class="form-group col-md-8">

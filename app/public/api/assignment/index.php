@@ -31,9 +31,22 @@ $stmt->execute($vars);
 
 $assignments = $stmt->fetchAll();
 
+if (isset($_GET['format']) && $_GET['format']=='csv') {
+    header('Content-Type: text/csv');
+    echo "Referee ID , Position, Status\r\n";
+    foreach($assignments as $o) {
+      
+      echo "\"".$o['refereeid'] . "\","
+      .$o['position'] . "\","
+      .$o['refstatus'] .  "\r\n";
+    }
+    
+  
+  } else {
 // Step 3: Convert to JSON
 $json = json_encode($assignments, JSON_PRETTY_PRINT);
 
 // Step 4: Output
 header('Content-Type: application/json');
 echo $json;
+  }
