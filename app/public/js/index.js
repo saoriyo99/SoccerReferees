@@ -38,7 +38,7 @@ const SomeApp = {
           fetch('/api/game/')
           .then( response => response.json() )
           .then( (responseJson) => {
-              console.log(responseJson);
+              //console.log(responseJson);
               this.games = responseJson;
           })
           .catch( (err) => {

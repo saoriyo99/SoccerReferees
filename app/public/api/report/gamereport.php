@@ -6,18 +6,13 @@ $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
 $sql = 'SELECT assignments.refereeid, assignments.gameid, games.location, games.date_time, referees.refname
-
-FROM assignments
-
-LEFT JOIN referees
-
+FROM assignments, games, referees
+LEFT OUTER JOIN referees
 ON assignments.refereeid = referees.refereeid
-
-LEFT JOIN games
-
-ON assignments.gameid = games.gameid;
-WHERE date_time BETWEEN StartDate=? AND EndDate=?
-GROUP BY refereeid';
+LEFT OUTER JOIN games
+ON assignments.gameid = games.gameid
+WHERE games.date_time BETWEEN StartDate = ? AND EndDate = ? 
+VALUES(?,?,?)'; 
 
 $stmt = $db->prepare($sql);
 $stmt->execute([
