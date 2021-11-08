@@ -3,7 +3,7 @@ header {
 }
 
 body {
-    background-color: blueviolet;
+    background-color: gray;
     color: white;
 }
 
@@ -87,4 +87,12 @@ th[role=columnheader]:not(.no-sort):hover:after {
 .selected {
 	background-color: rgb(245, 179, 92);
 	color: black;
+}
+
+h1 {
+	color: navy;
+}
+
+.sortableTableThree {
+	background-color: white;
 }
