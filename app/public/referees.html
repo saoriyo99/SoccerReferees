@@ -22,14 +22,8 @@
     <header>
       <!-- Navbar with 4 items including brand-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<<<<<<< HEAD
         <a class="navbar-brand" href="#">ISRA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-=======
-        <a class="navbar-brand" href="#">MSIS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
->>>>>>> 740fe58f257084844021897889b29865884bf85d
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -102,6 +96,20 @@
           <div class="noAssignments" v-if="! refereeAssignments.length">
             <h3>No Assignments. 😥</h3>
           </div>
+          <div>
+            <form >
+              <div class="form-group col-md-8">
+                <label for="startDate">StartDate</label>
+                <input v-model="KristyForm.StartDate" v-bind = "startDate" type="date" class="form-control" id="startDate" placeholder="StartDate">
+              </div>
+              <div class="form-group col-md-8">
+                <label for="endDate">EndDate</label>
+                <input v-model="KristyForm.EndDate" v-bind="endDate" type="date" class="form-control" id="endDate" placeholder="EndDate">
+              </div>
+              <p><a v-bind:href="'api/report/?format=csv&refereeid='+selectedReferee.refereeid+'&StartDate='+KristyForm.StartDate+'&EndDate='+KristyForm.EndDate" download>Download as CSV</a></p>
+
+            </form>
+          </div>
         </div>
       </div>
       <div class="row align-items-start">
@@ -150,21 +158,7 @@
             </div>
 
           </form>
-          <div>
-            <form v-on:submit.prevent="getGameReports">
-              <div class="form-group col-md-8">
-                <label for="startDate">StartDate</label>
-                <input v-model="KristyForm.StartDate" v-bind = "startDate" type="date" class="form-control" id="startDate" placeholder="StartDate">
-              </div>
-              <div class="form-group col-md-8">
-                <label for="endDate">EndDate</label>
-                <input v-model="KristyForm.EndDate" v-bind="endDate" type="date" class="form-control" id="endDate" placeholder="EndDate">
-              </div>
-
-              <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
-              {{KristyForm}}
-            </form>
-          </div>
+          
         </div>
 
 

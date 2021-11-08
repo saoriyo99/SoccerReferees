@@ -14,31 +14,32 @@ ON assignments.gameid = games.gameid
 WHERE games.date_time BETWEEN ? AND ?
 GROUP BY r.refereeid';
 
- $vars = [$_POST['StartDate'],
- $_POST['EndDate']];
+ $vars = [
+  isset($_POST['refereeid']),
+  isset($_POST['StartDate']),
+ isset($_POST['EndDate'])];
 
 $stmt = $db->prepare($sql);
 $stmt->execute($vars);
 
-$games = $stmt->fetchAll();
+$gameReport = $stmt->fetchAll();
 
 
 if (isset($_GET['format']) && $_GET['format']=='csv') {
   header('Content-Type: text/csv');
-  echo "Name,Username,MaxSalary,OfferCount\r\n";
+  echo "RefereeID,Location,Date_time\r\n";
 
-  foreach($offers as $o) {
-    echo "\"".$o['name'] . "\","
-        .$o['username'] . ","
-        .$o['maxSalary'] . ","
-        .$o['offerCount'] . "\r\n";
-  }
+      foreach($gameReport as $o) {
+          echo "\"".$o['refereeid'] . "\","
+          .$o['location'] . "\","
+          .$o['date_time'] .  "\r\n";
+      }
 
 } else {
   // Step 3: Convert to JSON
-  $json = json_encode($games, JSON_PRETTY_PRINT);
+  $json = json_encode($gameReport, JSON_PRETTY_PRINT);
 
   // Step 4: Output
   header('Content-Type: application/json');
   echo $json;
-} 
+}

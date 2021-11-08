@@ -122,7 +122,7 @@ const SomeApp = {
         });
     },
     getGameReports() {
-      fetch('api/report/gamereport.php', {
+      fetch('api/report/', {
         method: 'POST',
         body: JSON.stringify(this.KristyForm),
         headers: {
