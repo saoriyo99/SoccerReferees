@@ -5,16 +5,15 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT assignments.refereeid, assignments.gameid, games.location, games.date_time, referees.refname
-FROM assignments, games, referees
+$sql = 'SELECT a.refereeid, a.gameid, g.location, g.date_time, r.refname
+FROM assignments a, games g, referees r
 LEFT OUTER JOIN referees
 ON assignments.refereeid = referees.refereeid
-
-LEFT JOIN games
-
+LEFT OUTER JOIN games
 ON assignments.gameid = games.gameid
 WHERE date_time BETWEEN StartDate AND EndDate
 GROUP BY refereeid';
+// $vars = [];
 
 $stmt = $db->prepare($sql);
 $stmt->execute([
@@ -23,7 +22,7 @@ $stmt->execute([
     $_POST['EndDate']
   ]);
 
-$offers = $stmt->fetchAll();
+$games = $stmt->fetchAll();
 
 
 if (isset($_GET['format']) && $_GET['format']=='csv') {

@@ -121,13 +121,14 @@ const SomeApp = {
                 this.handleResetEdit();
               });
           },
-          getGameReports() {
+          getGameReports(evt) {
             fetch('api/report/gamereport.php', {
               method:'POST',
               body: JSON.stringify(this.KristyForm),
               headers: {
                 "Content-Type": "application/json; charset=utf-8"
               }
+              
             })
             .then( response => response.json() )
             .then( json => {
