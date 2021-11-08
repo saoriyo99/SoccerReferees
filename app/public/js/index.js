@@ -121,7 +121,7 @@ const SomeApp = {
                 this.handleResetEdit();
               });
           },
-          fetchRefereeData() {
+          getGameReports() {
             fetch('api/report/gamereport.php', {
               method:'POST',
               body: JSON.stringify(this.KristyForm),
@@ -133,10 +133,8 @@ const SomeApp = {
             .then( json => {
               console.log("Returned from post:", json);
               // TODO: test a result was returned!
-              this.referees = json;
+              this.gameReport = json;
               
-              // reset the form
-              this.handleResetEdit();
             });
         },
     
@@ -154,6 +152,7 @@ const SomeApp = {
             if (r == this.selectedReferee) {
                 return;
             }
+            this.KristyForm.refereeid = r.refereeid;
             this.selectedReferee = r;
             this.refereeAssignments = [];
             this.fetchRefereeAssignment(this.selectedReferee);

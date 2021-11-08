@@ -1,26 +1,35 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/custom.css">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Referees Page</title>
-    
-    <script src="https://unpkg.com/vue@next"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-  </head>
-  <body>
-    <div class="container">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/custom.css">
+
+  <title>Referees Page</title>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
     <header>
       <!-- Navbar with 4 items including brand-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<<<<<<< HEAD
         <a class="navbar-brand" href="#">ISRA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+=======
+        <a class="navbar-brand" href="#">MSIS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+>>>>>>> 740fe58f257084844021897889b29865884bf85d
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -38,117 +47,140 @@
         </div>
       </nav>
     </header>
-   
+
     <h1>Referees</h1>
 
-    <div id="soccerApp" >
+    <div id="soccerApp">
       <div class="row align-items-start">
-      <div class="col col-8">
-      <table class="table" id="sortableTableOne">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Age</th>
-            <th scope="col">Referee Grade</th>
-            <th scope="col">Skill Rating</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="referee in referees">
-            <td>{{ referee.refname }}</td>
-            <td>{{ referee.age }}</td>
-            <td>{{ referee.refgrade }}</td>
-            <td>{{ referee.skillrating }}</td>
-            <td>
-              <button type="button" v-on:click="handleEditReferee(referee)" class="btn btn-outline-dark btn-sm">Edit</button>
-              <button type="button" v-on:click="postDeleteReferee(referee)" class="btn btn-outline-dark btn-sm del_btn">Delete</button>
-              <button type="button" v-on:click="selectReferee(referee)" class="btn btn-outline-dark btn-sm del_btn">View Assignments</button>
-            </td>
-        </tr>
-        </tbody>
-      </table>
-</div>
-<div class="col col-4" v-if="selectedReferee">
-  <h3>Assignments for {{ selectedReferee.refname }} </h3>
- 
-  <table class="table" id="sortableTableTwo">
-    <thead>
-      <tr>
-        <th scope="col">Game Location</th>
-        <th scope="col">Game Date</th>
-        <th scope="col">Position</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="r in refereeAssignments">
-        <td>{{ getGameLocation(r.gameid)}}</td>
-        <td>{{ getGameDate(r.gameid)}}</td>
-        <td>{{ r.position }}</td>
-        </tr>
-    </tbody>
-  </table>
-  <div class="noAssignments" v-if="! refereeAssignments.length">
-    <h3>No Assignments. 😥</h3>
-  </div>
-</div>
-</div>
-<div class="row align-items-start">
-<div class="col col-8">
-  <h4>{{ selectedReferee === null ? "Add " : "Edit " }} Referee</h4>
-      <form v-on:submit.prevent="postReferee">
-        <div class="form-group col-md-8">
-          <label for="refereeName">Name</label>
-          <input type="text" v-model="refereeForm.refname" class="form-control" id="refereeName" placeholder="Referee Name">
+        <div class="col col-8">
+          <table class="table" id="sortableTableOne">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Referee Grade</th>
+                <th scope="col">Skill Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="referee in referees">
+                <td>{{ referee.refname }}</td>
+                <td>{{ referee.age }}</td>
+                <td>{{ referee.refgrade }}</td>
+                <td>{{ referee.skillrating }}</td>
+                <td>
+                  <button type="button" v-on:click="handleEditReferee(referee)"
+                    class="btn btn-outline-dark btn-sm">Edit</button>
+                  <button type="button" v-on:click="postDeleteReferee(referee)"
+                    class="btn btn-outline-dark btn-sm del_btn">Delete</button>
+                  <button type="button" v-on:click="selectReferee(referee)"
+                    class="btn btn-outline-dark btn-sm del_btn">View Assignments</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="form-group col-md-8">
-          <label for="refereeAge">Age</label>
-          <input type="number" v-model="refereeForm.age" class="form-control" id="refereeAge" placeholder="Referee Age">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputStatus">Referee Grade</label>
-         
-          <select v-model="refereeForm.refgrade" class="form-select" required="required">
-            <option value="Grade 1">Grade 1</option>
-            <option value="Grade 2">Grade 2</option>
-            <option value="Grade 3">Grade 3</option>
-            <option value="Grade 4">Grade 4</option>
-            <option value="Grade 5">Grade 5</option>
-            <option value="Grade 6">Grade 6</option>
-            <option value="Grade 7">Grade 7</option>
-            <option value="Grade 8">Grade 8</option>
-            <option value="Grade 9">Grade 9</option>
-            <option value="Grade 10">Grade 10</option>
-          </select>
-        
-        </div>        
+        <div class="col col-4" v-if="selectedReferee">
+          <h3>Assignments for {{ selectedReferee.refname }} </h3>
 
-        <div class="form-group col-md-4">
-          <label for="skillRating">Skill Rating</label>
-          <input type="number" v-model="refereeForm.skillrating" class="form-control" id="skillRating" placeholder="Skill Rating">
+          <table class="table" id="sortableTableTwo">
+            <thead>
+              <tr>
+                <th scope="col">Game Location</th>
+                <th scope="col">Game Date</th>
+                <th scope="col">Position</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="r in refereeAssignments">
+                <td>{{ getGameLocation(r.gameid)}}</td>
+                <td>{{ getGameDate(r.gameid)}}</td>
+                <td>{{ r.position }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="noAssignments" v-if="! refereeAssignments.length">
+            <h3>No Assignments. 😥</h3>
+          </div>
         </div>
-      
-        <div class="btnstyle">
-          <button type="submit" class="btn btn-primary">{{ selectedReferee === null ? "Add " : "Edit " }} Referee</button>
-          <button id="cancel_btn" type="button" class="btn btn-outline-dark" v-if="selectedReferee" v-on:click="handleResetEdit">Cancel Edit</button>
-        </div>
-        
-      </form>
       </div>
-      
-      
+      <div class="row align-items-start">
+        <div class="col col-8">
+          <h4>{{ selectedReferee === null ? "Add " : "Edit " }} Referee</h4>
+          <form v-on:submit.prevent="postReferee">
+            <div class="form-group col-md-8">
+              <label for="refereeName">Name</label>
+              <input type="text" v-model="refereeForm.refname" class="form-control" id="refereeName"
+                placeholder="Referee Name">
+            </div>
+            <div class="form-group col-md-8">
+              <label for="refereeAge">Age</label>
+              <input type="number" v-model="refereeForm.age" class="form-control" id="refereeAge"
+                placeholder="Referee Age">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputStatus">Referee Grade</label>
+
+              <select v-model="refereeForm.refgrade" class="form-select" required="required">
+                <option value="Grade 1">Grade 1</option>
+                <option value="Grade 2">Grade 2</option>
+                <option value="Grade 3">Grade 3</option>
+                <option value="Grade 4">Grade 4</option>
+                <option value="Grade 5">Grade 5</option>
+                <option value="Grade 6">Grade 6</option>
+                <option value="Grade 7">Grade 7</option>
+                <option value="Grade 8">Grade 8</option>
+                <option value="Grade 9">Grade 9</option>
+                <option value="Grade 10">Grade 10</option>
+              </select>
+
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="skillRating">Skill Rating</label>
+              <input type="number" v-model="refereeForm.skillrating" class="form-control" id="skillRating"
+                placeholder="Skill Rating">
+            </div>
+
+            <div class="btnstyle">
+              <button type="submit" class="btn btn-primary">{{ selectedReferee === null ? "Add " : "Edit " }}
+                Referee</button>
+              <button id="cancel_btn" type="button" class="btn btn-outline-dark" v-if="selectedReferee"
+                v-on:click="handleResetEdit">Cancel Edit</button>
+            </div>
+
+          </form>
+          <div>
+            <form>
+              <div class="form-group col-md-8">
+                <label for="inputPassword4">StartDate</label>
+                <input v-model="KristyForm.StartDate" type="date" class="form-control" id="inputPassword4" placeholder="StartDate">
+              </div>
+              <div class="form-group col-md-8">
+                <label for="inputPassword4">EndDate</label>
+                <input v-model="KristyForm.EndDate" type="date" class="form-control" id="inputPassword4" placeholder="EndDate">
+              </div>
+
+              <button v-on:click="getGameReports" type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+            </form>
+          </div>
+        </div>
+
+
       </div>
     </div>
-    
+
     <div class="footerstyle">
       <footer></footer>
     </div>
   </div>
-<script src="js/index.js"></script>
-<script src="js/tablesort.min.js"></script>
-    <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
-    <script>
-      new Tablesort(document.getElementById('sortableTableOne'));
-    </script>
-    
-  </body>
+  <script src="js/index.js"></script>
+  <script src="js/tablesort.min.js"></script>
+  <!-- Tablesort from plugin https://github.com/tristen/tablesort -->
+  <script>
+    new Tablesort(document.getElementById('sortableTableOne'));
+  </script>
+
+</body>
+
 </html>
