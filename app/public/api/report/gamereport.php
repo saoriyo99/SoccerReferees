@@ -9,10 +9,12 @@ $sql = 'SELECT assignments.refereeid, assignments.gameid, games.location, games.
 FROM assignments, games, referees
 LEFT OUTER JOIN referees
 ON assignments.refereeid = referees.refereeid
-LEFT OUTER JOIN games
+
+LEFT JOIN games
+
 ON assignments.gameid = games.gameid
-WHERE games.date_time BETWEEN StartDate = ? AND EndDate = ? 
-VALUES(?,?,?)'; 
+WHERE date_time BETWEEN StartDate AND EndDate
+GROUP BY refereeid';
 
 $stmt = $db->prepare($sql);
 $stmt->execute([
