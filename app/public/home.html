@@ -17,7 +17,7 @@
     <header>
       <!-- Navbar with 4 items including brand-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MSIS</a>
+        <a class="navbar-brand" href="#">ISRA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,34 +37,42 @@
       </nav>
     </header>
 
-    <h1>Game</h1>
+    <h1>Games</h1>
 
     <div id="uniqueHome">
       <table class="table" id="sortableTableThree">
         <thead>
           <tr>
             <th scope="col">Field</th>
-            <th scope="col">Time</th>
+            <th scope="col">Date and Time</th>
           </tr>
         </thead>
         <tbody>
          <tr v-for="game in games">
            <td>{{ game.location }} </td>
            <td>{{ game.date_time }} </td>
+           <td>
+            <button type="button" v-on:click="handleEditGame(game)" class="btn btn-outline-dark btn-sm">Edit</button>
+            <button type="button" v-on:click="postDeleteGame(game)" class="btn btn-outline-dark btn-sm del_btn">Delete</button>
+          </td>
          </tr>
         </tbody>
       </table>
 
-      <form>
+      <p><a href="api/game/?format=csv" download>Download as CSV</a></p>
+
+      <h3>{{ selectedGame === null ? "Add " : "Edit " }} Game</h3>
+      <form v-on:submit.prevent="postGame">
         <div class="form-group col-md-8">
-          <label for="inputEmail4">Field</label>
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Field">
+          <label for="inputEmail4">Location</label>
+          <input type="text" v-model="gameForm.location" class="form-control" id="inputEmail4" placeholder="Location">
         </div>
         <div class="form-group col-md-8">
-          <label for="inputPassword4">Time</label>
-          <input type="time" class="form-control" id="inputPassword4" placeholder="Time">
+          <label for="inputPassword4">Date and Time</label>
+          <input type="datetime" v-model="gameForm.date_time" class="form-control" id="inputPassword4" placeholder="Date">
         </div>
-        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+        <button type="submit" class="btn btn-primary">{{ selectedGame === null ? "Add " : "Edit " }} Game</button>
+        <button id="cancel_btn" type="button" class="btn btn-outline-dark" v-if="selectedGame" v-on:click="handleResetEdit">Cancel Edit</button>
       </form>
     </div>
 </div>
